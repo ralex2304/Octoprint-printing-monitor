@@ -144,7 +144,7 @@ while True:
                     print(log("Error getting Ip: "+str(e)))
                 estim="Ip: "+IP
                 ser.write(bytes(estim,'utf-8')+b"\n")
-            continue
+                continue
             if estimated==True:
                 estim="Completion: "+str(json.loads(r2.text)["progress"]["completion"])[0:4]+"%"
             else:

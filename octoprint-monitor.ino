@@ -1,14 +1,14 @@
 //Connecting some libraries
 #include <Adafruit_NeoPixel.h>
-#include <LiquidCrystalRus.h>
+#include <LiquidCrystal.h>
 #include <TroykaDHT.h>
 
 DHT dht(0, DHT21); //Connecting DHT21 temperature and humidity sensor
 
-LiquidCrystalRus lcd(12, 11, 5, 4, 3, 2); //Connecting 20x4 LCD display
+LiquidCrystal lcd(12, 11, 5, 4, 3, 2); //Connecting 20x4 LCD display
 
 #define PIXEL_PIN    6   //The pin of LED strip
-#define PIXEL_COUNT 12   //Count of Leds in the strip
+#define PIXEL_COUNT 12   //Count of Leds in the strip. You need to edit this field
 
 Adafruit_NeoPixel strip = Adafruit_NeoPixel(PIXEL_COUNT, PIXEL_PIN, NEO_RGB + NEO_KHZ800); //Cnnecting LED strip
 //Naming pins
