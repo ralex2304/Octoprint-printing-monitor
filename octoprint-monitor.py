@@ -1,12 +1,12 @@
 """
 Octoprint printing monitor by ralex2304
-Version: 2.3
-date: 29.03.2019
+Version: 2.4
+date: 31.03.2019
 email: admin@ardupy3000.ru
 web: https://github.com/ralex2304
 """
 
-API = "Your Octoprint API key" #Octoprint API key
+API = "---" #Octoprint API key
 #Import section
 import time
 import json
@@ -17,7 +17,7 @@ import socket
 import datetime
 from logMaster import *
 #Variable section
-port="/dev/ttyACM0"
+port="/dev/ttyACM"
 headers = {'X-Api-Key': API,"Content-Type":"application/json"}
 headers2 = {'X-Api-Key': API}
 url = 'http://127.0.0.1/api/job'
@@ -25,9 +25,10 @@ url2 = 'http://127.0.0.1/api/printer?exclude=temperature,sd'
 count=4
 estimated=False
 conn=0
-ser_conn=0
+ser_conn=1
 finished=False
 IP = "No data"
+i=0
 print(log("Connecting...")) #reporting about starting the code
 #Connecting to Octoprint
 while True:
@@ -42,18 +43,23 @@ while True:
     time.sleep(5)
 #Connecting serial
 while True:
-    ser_conn+=1
     try:
-        ser = serial.Serial(port,9600,timeout=2)
+        ser = serial.Serial(port+str(i),9600,timeout=2)
     except Exception as e:
         print(log("Serial connect error: "+str(e)))
+        if i==4:
+            i=-1
+        i+=1
+        if ser_conn<20:
+            continue
     else:
         print(log("Serial connected. "+str(ser_conn)+" tryings."))
         break
     if ser_conn==20:
         print(log("Serial is not responding. "+str(ser_conn)+" tryings."))
         #break
-    time.sleep(3); #delay for 3 seconds
+    time.sleep(3) #delay for 3 seconds
+    ser_conn+=1
 #Main loop
 while True:
     inp="" #resetting input variable
