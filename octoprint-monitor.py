@@ -1,12 +1,12 @@
 """
 Octoprint printing monitor by ralex2304
-Version: 2.4
-date: 31.03.2019
+Version: 2.5
+date: 05.04.2019
 email: admin@ardupy3000.ru
 web: https://github.com/ralex2304
 """
 
-API = "---" #Octoprint API key
+API = "---"   #Octoprint API key
 #Import section
 import time
 import json
@@ -29,6 +29,11 @@ ser_conn=1
 finished=False
 IP = "No data"
 i=0
+if API=="---": #checking if API key is added
+    print("Please add to code your Octoprint API key")
+    print("Press CTRL + C")
+    while True:
+        pass
 print(log("Connecting...")) #reporting about starting the code
 #Connecting to Octoprint
 while True:
@@ -105,7 +110,7 @@ while True:
             os.system("sudo shutdown -h now") #shutting down
         else:
             print(log("Shutdown cancelled. State:"+json.loads(r.text)["state"]["text"]))
-    #Every five seconds it sends data to monitor
+    #Every five seconds it sends data to arduino device
     if count>=5:
         count=0
         estimated=not estimated
